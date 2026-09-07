@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 320" fill="none">
+  <rect width="480" height="320" fill="#F1F5F9"/>
+  <circle cx="240" cy="120" r="48" fill="none" stroke="#0B1F3A" stroke-width="3"/>
+  <path d="M192 120h96M240 72c16 16 16 80 0 96M240 72c-16 16-16 80 0 96" fill="none" stroke="#0B1F3A" stroke-width="2"/>
+  <path d="M200 200 L280 200" stroke="#C8102E" stroke-width="3"/>
+  <path d="M260 185 L280 200 L260 215" fill="none" stroke="#C8102E" stroke-width="2"/>
+  <text x="240" y="250" text-anchor="middle" fill="#0B1F3A" font-family="Arial Narrow, Arial, sans-serif" font-size="18" font-weight="700" letter-spacing="3">NO TASKS YET</text>
+  <text x="240" y="274" text-anchor="middle" fill="#475569" font-family="Arial, sans-serif" font-size="12">Set up your court  Rise Stronger</text>
+</svg>

@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 1000" fill="none">
+  <rect width="800" height="1000" fill="#0B1F3A"/>
+  <circle cx="400" cy="360" r="120" fill="none" stroke="#0F8BF6" stroke-width="4"/>
+  <path d="M280 360h240M400 240c40 40 40 200 0 240M400 240c-40 40-40 200 0 240" fill="none" stroke="#FFFFFF" stroke-width="3"/>
+  <path d="M470 280 L500 250 L520 270 L490 300 Z M490 300 L450 420 L430 412 L470 292" fill="#C8102E"/>
+  <text x="400" y="560" text-anchor="middle" fill="#FFFFFF" font-family="Arial Narrow, Arial, sans-serif" font-size="48" font-weight="700" letter-spacing="8">HANGTUAH</text>
+  <text x="400" y="600" text-anchor="middle" fill="#0F8BF6" font-family="Arial Narrow, Arial, sans-serif" font-size="20" font-weight="600" letter-spacing="6">JAKARTA</text>
+  <text x="400" y="700" text-anchor="middle" fill="#FFFFFF" font-family="Arial Narrow, Arial, sans-serif" font-size="22" font-weight="700" letter-spacing="4">RISE STRONGER</text>
+  <text x="400" y="732" text-anchor="middle" fill="#94A3B8" font-family="Arial, sans-serif" font-size="14">The New Spirit of Hangtuah Jakarta</text>
+</svg>

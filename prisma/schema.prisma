@@ -1,0 +1,142 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  ADMIN
+  LEADERSHIP
+  STAFF
+}
+
+enum Priority {
+  LOW
+  MEDIUM
+  HIGH
+  URGENT
+}
+
+model User {
+  id            String               @id @default(cuid())
+  username      String               @unique
+  passwordHash  String
+  fullName      String
+  role          Role
+  mustResetPw   Boolean              @default(true)
+  active        Boolean              @default(true)
+  createdAt     DateTime             @default(now())
+  memberships   WorkspaceMember[]
+  assignedTasks Task[]               @relation("TaskAssignee")
+  createdTasks  Task[]               @relation("TaskCreator")
+  comments      Comment[]
+  resetTokens   PasswordResetToken[]
+  auditLogs     AuditLog[]
+}
+
+model Workspace {
+  id          String            @id @default(cuid())
+  slug        String            @unique
+  name        String
+  description String?
+  boards      Board[]
+  members     WorkspaceMember[]
+  createdAt   DateTime          @default(now())
+}
+
+model WorkspaceMember {
+  id          String    @id @default(cuid())
+  userId      String
+  workspaceId String
+  user        User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  workspace   Workspace @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, workspaceId])
+}
+
+model Board {
+  id          String    @id @default(cuid())
+  workspaceId String
+  name        String
+  columns     Column[]
+  workspace   Workspace @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+  createdAt   DateTime  @default(now())
+}
+
+model Column {
+  id       String @id @default(cuid())
+  boardId  String
+  name     String
+  position Int
+  board    Board  @relation(fields: [boardId], references: [id], onDelete: Cascade)
+  tasks    Task[]
+}
+
+model Task {
+  id          String       @id @default(cuid())
+  columnId    String
+  creatorId   String
+  assigneeId  String?
+  title       String
+  description String?
+  priority    Priority     @default(MEDIUM)
+  dueDate     DateTime?
+  position    String
+  labels      Label[]      @relation("TaskLabels")
+  comments    Comment[]
+  attachments Attachment[]
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+  column      Column       @relation(fields: [columnId], references: [id], onDelete: Cascade)
+  creator     User         @relation("TaskCreator", fields: [creatorId], references: [id])
+  assignee    User?        @relation("TaskAssignee", fields: [assigneeId], references: [id])
+}
+
+model Label {
+  id    String @id @default(cuid())
+  name  String
+  color String
+  tasks Task[] @relation("TaskLabels")
+}
+
+model Comment {
+  id        String   @id @default(cuid())
+  taskId    String
+  authorId  String
+  body      String
+  createdAt DateTime @default(now())
+  task      Task     @relation(fields: [taskId], references: [id], onDelete: Cascade)
+  author    User     @relation(fields: [authorId], references: [id])
+}
+
+model Attachment {
+  id       String @id @default(cuid())
+  taskId   String
+  filename String
+  mime     String
+  size     Int
+  path     String
+  task     Task   @relation(fields: [taskId], references: [id], onDelete: Cascade)
+}
+
+model PasswordResetToken {
+  id        String   @id @default(cuid())
+  userId    String
+  tokenHash String
+  expiresAt DateTime
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model AuditLog {
+  id         String   @id @default(cuid())
+  actorId    String
+  action     String
+  targetType String
+  targetId   String
+  meta       Json?
+  createdAt  DateTime @default(now())
+  actor      User     @relation(fields: [actorId], references: [id])
+}

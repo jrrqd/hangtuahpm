@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" fill="none">
+  <rect width="1200" height="630" fill="#0B1F3A"/>
+  <image href="logo.png" x="80" y="195" width="240" height="240" preserveAspectRatio="xMidYMid meet"/>
+  <text x="360" y="300" fill="#FFFFFF" font-family="Arial Narrow, Arial, sans-serif" font-size="64" font-weight="700" letter-spacing="6">HANGTUAH PM</text>
+  <text x="360" y="360" fill="#0F8BF6" font-family="Arial Narrow, Arial, sans-serif" font-size="28" font-weight="600" letter-spacing="4">RISE STRONGER · PROJECT MANAGEMENT</text>
+  <text x="360" y="420" fill="#94A3B8" font-family="Arial, sans-serif" font-size="18">/hangtuahpm</text>
+</svg>
