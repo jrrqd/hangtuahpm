@@ -2,15 +2,16 @@
 
 Kanban-style project management for Hangtuah Basketball Club divisions (Marketing, Merchandiser, Creative).
 
-**Live path:** `https://radr.nxtdev.xyz/hangtuahpm`
+**Live:** [https://radr.nxtdev.xyz/hangtuahpm](https://radr.nxtdev.xyz/hangtuahpm)
 
 ## Stack
 
-- Next.js 15 (App Router) + TypeScript
-- PostgreSQL + Prisma 6
+- Next.js 15.5 (App Router, Turbopack dev) + React 19 + TypeScript 5
+- PostgreSQL 16+ with Prisma 6
 - Custom JWT auth (username/password, admin-issued temp passwords)
-- dnd-kit Kanban + SSE realtime
+- `@dnd-kit` Kanban + SSE realtime updates
 - Hangtuah "Rise Stronger" brand theme (navy / sky / red)
+- Tailwind CSS 4 + Radix UI primitives, Tiptap for rich-text cards
 
 ## Roles
 
@@ -19,6 +20,20 @@ Kanban-style project management for Hangtuah Basketball Club divisions (Marketin
 | **STAFF** | Own division workspace(s) only |
 | **LEADERSHIP** | All workspaces + Fight Night dashboard |
 | **ADMIN** | Full CRUD on users, workspaces, boards, tasks |
+
+## Scripts
+
+| Script | What it does |
+|--------|--------------|
+| `npm run dev` | Start Next.js dev server on port `3001` with Turbopack |
+| `npm run build` | Production build |
+| `npm start` | Run the production build on port `3001` |
+| `npm run lint` | ESLint (Next.js config) |
+| `npm run db:generate` | `prisma generate` |
+| `npm run db:migrate` | `prisma migrate deploy` (use for prod / CI) |
+| `npm run db:push` | `prisma db push` (schema sync, no migrations) |
+| `npm run db:seed` | Run `prisma/seed.ts` (also wired as `prisma.seed`) |
+| `npm run db:studio` | Open Prisma Studio |
 
 ## Local development
 
@@ -35,7 +50,7 @@ Then:
 cp .env.example .env
 # edit DATABASE_URL / JWT_SECRET if needed
 npm install
-npx prisma migrate deploy
+npm run db:migrate   # or: npx prisma migrate deploy
 npm run db:seed
 npm run dev
 ```
@@ -65,8 +80,8 @@ sudo chown -R $USER:$USER /var/www/hangtuahpm /var/hangtuahpm/uploads
 cd /var/www/hangtuahpm
 cp .env.example .env   # set production secrets
 npm ci
-npx prisma migrate deploy
-npx prisma db seed
+npm run db:migrate
+npm run db:seed
 npm run build
 mkdir -p /var/log/hangtuahpm
 pm2 start ecosystem.config.cjs
@@ -100,6 +115,12 @@ Visual identity follows the Nov 2025 *Rise Stronger* rebrand:
 - Login hero: [Photo by Kin Li on Unsplash](https://unsplash.com/photos/photo-1568861660872-cef3f9846366)
 - Fight Night dashboard hero: [Photo by Syah on Unsplash](https://unsplash.com/photos/photo-1771882856158-c8e083134ee3)
 - Club logo: Hangtuah Jakarta / IBL official crest (downloaded from hangtuah.id)
+
+## Project conventions
+
+- `.cursor/rules/github-account.mdc` pins the workspace to the `jrrqd` GitHub identity — local commit author and `gh` CLI user must match.
+- App is served under the `/hangtuahpm` base path (set via `APP_BASE_PATH` in `.env`).
+- API surface lives under `src/app/api/`; long-lived realtime uses SSE (`src/app/api/events/stream`).
 
 ## License
 
