@@ -1,0 +1,33 @@
+---
+description: This project uses the jrrqd GitHub account — never assume JustHackr or any other account.
+globs:
+alwaysApply: true
+---
+
+# GitHub Account: jrrqd
+
+This workspace is bound to the **`jrrqd`** GitHub account. Treat any other GitHub identity as wrong for this project.
+
+## Authoritative source
+
+The active GitHub CLI identity is stored in `~/.config/gh/hosts.yml` under `user:`. That file is the source of truth — read it before any GitHub-scoped work and assume `jrrqd` unless it says otherwise.
+
+## Commit author
+
+- `git config user.name` and `git config user.email` for this repo must resolve to the `jrrqd` GitHub account.
+- If they don't, ask before changing them. Do not silently rewrite commit history.
+
+## Remote URLs
+
+- Prefer SSH remotes under `git@github.com:jrrqd/...`.
+- Do not push, open PRs against, or interact with repos owned by other users/Orgs unless the user explicitly asks for it in that turn.
+
+## GitHub CLI (`gh`)
+
+- The `gh` binary is not on `$PATH` by default; it lives at `/tmp/gh_2.96.0_macOS_arm64/bin/gh`. Use that full path, or ask the user before adding it to a shell rc.
+- Before any `gh` call that touches GitHub (auth status, issue/PR create, repo view, etc.), confirm the active user with `gh auth status` and stop if it is not `jrrqd`.
+
+## When the user asks to "switch GitHub account"
+
+1. Edit `~/.config/gh/hosts.yml` and change `user:` to the requested account. Do not delete other remembered users under `users:` — keep them so switching back is reversible.
+2. If the request implies changing commit author too, also update local git config — but ask first; never rewrite past commits.
