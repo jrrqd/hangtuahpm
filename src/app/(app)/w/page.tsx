@@ -15,7 +15,7 @@ export default async function WorkspacesIndexPage() {
   }
 
   return (
-    <div className="p-8">
+    <div className="p-4 md:p-8">
       <h1 className="font-display text-2xl tracking-[0.12em] text-navy mb-2">
         Your Workspaces
       </h1>

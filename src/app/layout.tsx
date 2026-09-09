@@ -1,6 +1,9 @@
 import { Barlow_Condensed, Inter, JetBrains_Mono } from "next/font/google";
 import type { Metadata } from "next";
+import type { CSSProperties } from "react";
 import { Toaster } from "sonner";
+import { ThemeProvider } from "@/components/brand/ThemeProvider";
+import { getAppTheme } from "@/lib/settings";
 import "./globals.css";
 
 const inter = Inter({
@@ -33,18 +36,33 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const theme = await getAppTheme();
+  const themeStyle = {
+    "--navy": theme.colorNavy,
+    "--sky": theme.colorSky,
+    "--fight": theme.colorFight,
+    "--primary": theme.colorNavy,
+    "--secondary": theme.colorSky,
+    "--accent": theme.colorFight,
+    "--destructive": theme.colorFight,
+    "--ring": theme.colorSky,
+    "--foreground": theme.colorNavy,
+  } as CSSProperties;
+
   return (
-    <html lang="en">
+    <html lang="en" style={themeStyle}>
       <body
         className={`${inter.variable} ${barlow.variable} ${jetbrains.variable} antialiased`}
       >
-        {children}
-        <Toaster richColors position="top-right" />
+        <ThemeProvider theme={theme}>
+          {children}
+          <Toaster richColors position="top-right" />
+        </ThemeProvider>
       </body>
     </html>
   );

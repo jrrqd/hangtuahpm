@@ -8,7 +8,7 @@ export default async function AdminBoardsPage() {
   if (!session) redirect("/login");
   if (!canAdmin(session.role)) redirect("/dashboard");
   return (
-    <div className="p-8">
+    <div className="p-4 md:p-8">
       <BoardAdmin />
     </div>
   );

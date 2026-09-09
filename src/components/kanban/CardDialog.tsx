@@ -12,6 +12,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { TextWithLinks } from "@/components/ui/text-with-links";
 import type { MemberDTO, TaskDTO } from "./Board";
 import { Priority } from "@prisma/client";
 import { toast } from "sonner";
@@ -244,7 +245,7 @@ export function CardDialog({
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="max-w-xl max-h-[90vh] overflow-y-auto">
+      <DialogContent className="w-[calc(100%-2rem)] max-w-xl max-h-[90vh] overflow-y-auto">
         <DialogHeader>
           <DialogTitle>Task Detail</DialogTitle>
         </DialogHeader>
@@ -257,7 +258,7 @@ export function CardDialog({
             <Label>Description</Label>
             <EditorContent editor={editor} />
           </div>
-          <div className="grid grid-cols-2 gap-3">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             <div className="space-y-2">
               <Label>Priority</Label>
               <select
@@ -321,17 +322,18 @@ export function CardDialog({
                       </span>
                     </div>
                     <p className="mt-0.5 text-muted-foreground whitespace-pre-wrap">
-                      {c.body}
+                      <TextWithLinks text={c.body} />
                     </p>
                   </div>
                 ))
               )}
             </div>
-            <div className="flex gap-2">
+            <div className="flex flex-col sm:flex-row gap-2">
               <Input
                 value={comment}
                 onChange={(e) => setComment(e.target.value)}
                 placeholder="What's the latest on this task?"
+                className="flex-1"
                 onKeyDown={(e) => {
                   if (e.key === "Enter" && !e.shiftKey) {
                     e.preventDefault();
@@ -344,6 +346,7 @@ export function CardDialog({
                 variant="outline"
                 onClick={postUpdate}
                 disabled={posting || !comment.trim()}
+                className="w-full sm:w-auto shrink-0"
               >
                 {posting ? "Posting…" : "Post update"}
               </Button>
@@ -360,11 +363,11 @@ export function CardDialog({
               }}
             />
           </div>
-          <div className="flex justify-between gap-2 pt-2">
-            <Button variant="destructive" onClick={remove}>
+          <div className="flex flex-col-reverse sm:flex-row sm:justify-between gap-2 pt-2">
+            <Button variant="destructive" onClick={remove} className="w-full sm:w-auto">
               Delete
             </Button>
-            <Button onClick={save} disabled={saving}>
+            <Button onClick={save} disabled={saving} className="w-full sm:w-auto">
               {saving ? "Saving…" : "Save"}
             </Button>
           </div>

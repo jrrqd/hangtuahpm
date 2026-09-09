@@ -26,7 +26,7 @@ export function KanbanColumn({
   return (
     <div
       className={cn(
-        "w-72 shrink-0 rounded-md border bg-muted/40 border-t-4",
+        "w-[min(18rem,calc(100vw-2rem))] sm:w-72 shrink-0 snap-start rounded-md border bg-muted/40 border-t-4",
         tint,
         isOver && "ring-2 ring-sky"
       )}

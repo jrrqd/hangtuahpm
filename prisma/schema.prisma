@@ -140,3 +140,15 @@ model AuditLog {
   createdAt  DateTime @default(now())
   actor      User     @relation(fields: [actorId], references: [id])
 }
+
+model AppSettings {
+  id                String   @id @default("default")
+  colorNavy         String   @default("#0B1F3A")
+  colorSky          String   @default("#0F8BF6")
+  colorFight        String   @default("#C8102E")
+  logoPath          String?
+  loginHeroPath     String?
+  dashboardHeroPath String?
+  emptyKanbanPaths  String?
+  updatedAt         DateTime @updatedAt
+}

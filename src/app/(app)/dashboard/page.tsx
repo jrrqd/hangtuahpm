@@ -1,7 +1,7 @@
 import { redirect } from "next/navigation";
 import Link from "next/link";
-import Image from "next/image";
 import { getSession } from "@/lib/auth";
+import { DashboardHero } from "@/components/brand/DashboardHero";
 import { canSeeDashboard } from "@/lib/rbac";
 import { prisma } from "@/lib/prisma";
 import { PriorityBadge } from "@/components/shell/RoleChip";
@@ -67,31 +67,9 @@ export default async function DashboardPage() {
 
   return (
     <div>
-      <div className="relative min-h-[220px] text-white overflow-hidden">
-        <Image
-          src="/hangtuahpm/brand/dashboard-hero.jpg"
-          alt=""
-          fill
-          priority
-          sizes="100vw"
-          className="object-cover opacity-70"
-        />
-        <div className="absolute inset-0 bg-gradient-to-r from-navy/90 via-navy/65 to-transparent" />
-        <div className="relative px-8 py-12">
-          <p className="font-display text-xs tracking-[0.25em] text-sky mb-2">
-            Leadership view
-          </p>
-          <h1 className="font-display text-3xl md:text-4xl tracking-[0.12em]">
-            Fight Night
-          </h1>
-          <p className="mt-2 text-white/85 text-sm max-w-xl">
-            Cross-workspace view of everything in motion across Marketing,
-            Merchandiser, and Creative.
-          </p>
-        </div>
-      </div>
+      <DashboardHero />
 
-      <div className="p-8 space-y-8">
+      <div className="p-4 md:p-8 space-y-8">
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {stats.map((s) => (
             <Link key={s.workspace.id} href={`/w/${s.workspace.slug}`}>
@@ -116,7 +94,7 @@ export default async function DashboardPage() {
           <h2 className="font-display text-lg tracking-wider text-navy mb-4">
             In Progress — All Courts
           </h2>
-          <div className="rounded-md border overflow-hidden">
+          <div className="rounded-md border overflow-x-auto">
             <table className="w-full text-sm">
               <thead className="bg-muted font-display text-xs tracking-wider text-left">
                 <tr>

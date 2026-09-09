@@ -34,7 +34,7 @@ export function CreateBoardButton({ workspaceId }: { workspaceId: string }) {
   }
 
   return (
-    <Button onClick={create} disabled={loading}>
+    <Button onClick={create} disabled={loading} className="w-full sm:w-auto shrink-0">
       <Plus className="h-4 w-4" /> New board
     </Button>
   );

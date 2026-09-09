@@ -1,7 +1,7 @@
 import { redirect } from "next/navigation";
 import { getSession } from "@/lib/auth";
 import { getAccessibleWorkspaces } from "@/lib/rbac";
-import { Sidebar } from "@/components/shell/Sidebar";
+import { AppShell } from "@/components/shell/AppShell";
 
 export default async function AppLayout({
   children,
@@ -15,13 +15,12 @@ export default async function AppLayout({
   const workspaces = await getAccessibleWorkspaces(session);
 
   return (
-    <div className="flex min-h-screen bg-background">
-      <Sidebar
-        role={session.role}
-        fullName={session.fullName}
-        workspaces={workspaces.map((w) => ({ slug: w.slug, name: w.name }))}
-      />
-      <main className="flex-1 overflow-auto">{children}</main>
-    </div>
+    <AppShell
+      role={session.role}
+      fullName={session.fullName}
+      workspaces={workspaces.map((w) => ({ slug: w.slug, name: w.name }))}
+    >
+      {children}
+    </AppShell>
   );
 }

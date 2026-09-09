@@ -5,6 +5,7 @@ import {
   DndContext,
   DragOverlay,
   PointerSensor,
+  TouchSensor,
   useSensor,
   useSensors,
   closestCorners,
@@ -20,6 +21,7 @@ import { Button } from "@/components/ui/button";
 import { Plus } from "lucide-react";
 import { toast } from "sonner";
 import Image from "next/image";
+import { useTheme } from "@/components/brand/ThemeProvider";
 
 export type TaskDTO = {
   id: string;
@@ -65,12 +67,14 @@ export function KanbanBoard({
   initialColumns: ColumnDTO[];
   members: MemberDTO[];
 }) {
+  const theme = useTheme();
   const [columns, setColumns] = useState(initialColumns);
   const [activeTask, setActiveTask] = useState<TaskDTO | null>(null);
   const [selected, setSelected] = useState<TaskDTO | null>(null);
 
   const sensors = useSensors(
-    useSensor(PointerSensor, { activationConstraint: { distance: 6 } })
+    useSensor(PointerSensor, { activationConstraint: { distance: 6 } }),
+    useSensor(TouchSensor, { activationConstraint: { delay: 200, tolerance: 6 } })
   );
 
   const refreshBoard = useCallback(async () => {
@@ -306,19 +310,13 @@ export function KanbanBoard({
 
   const empty = columns.every((c) => c.tasks.length === 0);
 
-  // Rotate through a small set of placeholder photos each time the empty
-  // state is shown, so repeat visits feel fresh.
-  const EMPTY_PLACEHOLDERS = [
-    "/hangtuahpm/brand/empty-kanban/player-1.jpg",
-    "/hangtuahpm/brand/empty-kanban/player-2.jpg",
-    "/hangtuahpm/brand/empty-kanban/player-3.jpg",
-  ] as const;
+  const placeholders = theme.emptyKanbanUrls;
   const [placeholderIdx, setPlaceholderIdx] = useState(() =>
-    Math.floor(Math.random() * EMPTY_PLACEHOLDERS.length)
+    Math.floor(Math.random() * placeholders.length)
   );
   useEffect(() => {
-    setPlaceholderIdx(Math.floor(Math.random() * EMPTY_PLACEHOLDERS.length));
-  }, [empty]);
+    setPlaceholderIdx(Math.floor(Math.random() * placeholders.length));
+  }, [empty, placeholders.length]);
 
   return (
     <div>
@@ -328,7 +326,7 @@ export function KanbanBoard({
         onDragStart={onDragStart}
         onDragEnd={onDragEnd}
       >
-        <div className="flex gap-4 overflow-x-auto pb-6 items-start">
+        <div className="flex gap-4 overflow-x-auto pb-6 items-start snap-x snap-mandatory -mx-4 px-4 sm:mx-0 sm:px-0">
           {columns.map((col) => (
             <KanbanColumn
               key={col.id}
@@ -348,7 +346,7 @@ export function KanbanBoard({
         <div className="flex flex-col items-center py-12">
           <Image
             key={placeholderIdx}
-            src={EMPTY_PLACEHOLDERS[placeholderIdx]}
+            src={placeholders[placeholderIdx]}
             alt="Empty board"
             width={320}
             height={420}

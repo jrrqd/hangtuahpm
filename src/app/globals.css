@@ -67,6 +67,14 @@ body {
   font-family: var(--font-inter), system-ui, sans-serif;
 }
 
+html {
+  -webkit-tap-highlight-color: transparent;
+}
+
+.overflow-x-auto {
+  -webkit-overflow-scrolling: touch;
+}
+
 .font-display {
   font-family: var(--font-barlow), "Arial Narrow", sans-serif;
   letter-spacing: 0.06em;

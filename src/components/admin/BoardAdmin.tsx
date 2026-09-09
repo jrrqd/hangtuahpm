@@ -66,13 +66,15 @@ export function BoardAdmin() {
 
   return (
     <div className="space-y-4">
-      <div className="flex justify-between items-center">
+      <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
         <h1 className="font-display text-2xl tracking-[0.12em] text-navy">
           Boards
         </h1>
-        <Button onClick={() => setOpen(true)}>Create board</Button>
+        <Button onClick={() => setOpen(true)} className="w-full sm:w-auto">
+          Create board
+        </Button>
       </div>
-      <div className="rounded-md border overflow-hidden">
+      <div className="rounded-md border overflow-x-auto">
         <table className="w-full text-sm">
           <thead className="bg-muted font-display text-xs tracking-wider text-left">
             <tr>

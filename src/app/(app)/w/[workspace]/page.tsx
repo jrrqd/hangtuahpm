@@ -31,8 +31,8 @@ export default async function WorkspacePage({
   }
 
   return (
-    <div className="p-8">
-      <div className="flex items-start justify-between gap-4 mb-8">
+    <div className="p-4 md:p-8">
+      <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between mb-8">
         <div>
           <h1 className="font-display text-2xl tracking-[0.12em] text-navy">
             {workspace.name}

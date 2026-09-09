@@ -7,6 +7,7 @@ const PUBLIC_PREFIXES = [
   "/reset-password",
   "/api/auth/login",
   "/api/auth/reset",
+  "/api/settings",
   "/brand",
 ];
 

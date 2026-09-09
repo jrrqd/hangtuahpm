@@ -180,11 +180,13 @@ export function UserTable() {
 
   return (
     <div className="space-y-4">
-      <div className="flex justify-between items-center">
+      <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
         <h1 className="font-display text-2xl tracking-[0.12em] text-navy">
           Users
         </h1>
-        <Button onClick={openCreate}>Create user</Button>
+        <Button onClick={openCreate} className="w-full sm:w-auto">
+          Create user
+        </Button>
       </div>
 
       {tempPw && (

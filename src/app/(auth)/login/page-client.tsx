@@ -7,8 +7,10 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Wordmark } from "@/components/brand/Wordmark";
+import { useTheme } from "@/components/brand/ThemeProvider";
 
 export default function LoginPage() {
+  const theme = useTheme();
   const router = useRouter();
   const search = useSearchParams();
   const [username, setUsername] = useState("");
@@ -57,20 +59,22 @@ export default function LoginPage() {
     <div className="min-h-screen grid lg:grid-cols-2">
       <div className="relative hidden lg:block min-h-[420px] overflow-hidden">
         <Image
-          src="/hangtuahpm/brand/login-hero.jpg"
+          src={theme.loginHeroUrl}
           alt="Basketball court"
           fill
           priority
           sizes="(min-width: 1024px) 50vw, 100vw"
+          unoptimized={theme.hasCustomLoginHero}
           className="object-cover"
         />
         <div className="absolute inset-0 bg-gradient-to-br from-navy/85 via-navy/60 to-sky/40" />
         <div className="absolute inset-0 flex flex-col justify-end p-12 text-white">
           <Image
-            src="/hangtuahpm/brand/logo.png"
+            src={theme.logoUrl}
             alt="Hangtuah Jakarta"
             width={96}
             height={96}
+            unoptimized={theme.hasCustomLogo}
             className="mb-4 drop-shadow-lg"
             priority
           />
@@ -82,7 +86,7 @@ export default function LoginPage() {
           </h2>
         </div>
       </div>
-      <div className="flex flex-col justify-center px-8 py-12 sm:px-16">
+      <div className="flex flex-col justify-center px-4 py-10 sm:px-8 sm:py-12 lg:px-16">
         <Wordmark className="mb-10" priority />
         <h1 className="font-display text-3xl tracking-[0.12em] text-navy mb-2">
           Enter the Court

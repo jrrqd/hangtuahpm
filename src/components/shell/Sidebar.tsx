@@ -6,7 +6,13 @@ import { Wordmark } from "@/components/brand/Wordmark";
 import { RoleChip } from "@/components/shell/RoleChip";
 import { KerisIcon, BasketballIcon } from "@/components/icons/Icons";
 import { cn } from "@/lib/utils";
-import { LayoutDashboard, Users, FolderKanban, LogOut } from "lucide-react";
+import {
+  LayoutDashboard,
+  Users,
+  FolderKanban,
+  LogOut,
+  Palette,
+} from "lucide-react";
 
 type WorkspaceNav = { slug: string; name: string };
 
@@ -15,11 +21,15 @@ export function Sidebar({
   fullName,
   workspaces,
   activeSlug,
+  className,
+  onNavigate,
 }: {
   role: Role;
   fullName: string;
   workspaces: WorkspaceNav[];
   activeSlug?: string;
+  className?: string;
+  onNavigate?: () => void;
 }) {
   const showDash = role === Role.ADMIN || role === Role.LEADERSHIP;
   const showAdmin = role === Role.ADMIN;
@@ -30,13 +40,22 @@ export function Sidebar({
   }
 
   return (
-    <aside className="flex w-64 shrink-0 flex-col border-r bg-navy text-white min-h-screen">
+    <aside
+      className={cn(
+        "flex w-64 shrink-0 flex-col border-r bg-navy text-white min-h-screen",
+        className
+      )}
+    >
       <div className="p-5 border-b border-white/10">
         <Wordmark light priority />
       </div>
       <nav className="flex-1 p-3 space-y-1">
         {showDash && (
-          <NavLink href="/dashboard" icon={<LayoutDashboard className="h-4 w-4" />}>
+          <NavLink
+            href="/dashboard"
+            icon={<LayoutDashboard className="h-4 w-4" />}
+            onNavigate={onNavigate}
+          >
             Fight Night
           </NavLink>
         )}
@@ -49,6 +68,7 @@ export function Sidebar({
             href={`/w/${w.slug}`}
             icon={<BasketballIcon className="h-4 w-4" />}
             active={activeSlug === w.slug}
+            onNavigate={onNavigate}
           >
             {w.name}
           </NavLink>
@@ -58,20 +78,33 @@ export function Sidebar({
             <div className="pt-4 pb-1 px-3 font-display text-[10px] tracking-[0.2em] text-sky">
               War Room
             </div>
-            <NavLink href="/admin/users" icon={<Users className="h-4 w-4" />}>
+            <NavLink
+              href="/admin/users"
+              icon={<Users className="h-4 w-4" />}
+              onNavigate={onNavigate}
+            >
               Users
             </NavLink>
             <NavLink
               href="/admin/workspaces"
               icon={<KerisIcon className="h-4 w-4" />}
+              onNavigate={onNavigate}
             >
               Workspaces
             </NavLink>
             <NavLink
               href="/admin/boards"
               icon={<FolderKanban className="h-4 w-4" />}
+              onNavigate={onNavigate}
             >
               Boards
+            </NavLink>
+            <NavLink
+              href="/admin/appearance"
+              icon={<Palette className="h-4 w-4" />}
+              onNavigate={onNavigate}
+            >
+              Appearance
             </NavLink>
           </>
         )}
@@ -101,15 +134,18 @@ function NavLink({
   children,
   icon,
   active,
+  onNavigate,
 }: {
   href: string;
   children: React.ReactNode;
   icon: React.ReactNode;
   active?: boolean;
+  onNavigate?: () => void;
 }) {
   return (
     <Link
       href={href}
+      onClick={onNavigate}
       className={cn(
         "flex items-center gap-2 rounded-md px-3 py-2 text-sm transition-colors",
         active

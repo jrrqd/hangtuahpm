@@ -130,13 +130,15 @@ export function WorkspaceForm() {
 
   return (
     <div className="space-y-4">
-      <div className="flex justify-between items-center">
+      <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
         <h1 className="font-display text-2xl tracking-[0.12em] text-navy">
           Workspaces
         </h1>
-        <Button onClick={openCreate}>Create workspace</Button>
+        <Button onClick={openCreate} className="w-full sm:w-auto">
+          Create workspace
+        </Button>
       </div>
-      <div className="rounded-md border overflow-hidden">
+      <div className="rounded-md border overflow-x-auto">
         <table className="w-full text-sm">
           <thead className="bg-muted font-display text-xs tracking-wider text-left">
             <tr>
