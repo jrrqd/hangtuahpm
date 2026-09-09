@@ -4,6 +4,14 @@ Kanban-style project management for Hangtuah Basketball Club divisions (Marketin
 
 **Live:** [https://radr.nxtdev.xyz/hangtuahpm](https://radr.nxtdev.xyz/hangtuahpm)
 
+## Screenshots
+
+| Login | Fight Night dashboard | Empty kanban board |
+|-------|----------------------|--------------------|
+| ![Login screen](docs/screenshots/login.jpg) | ![Dashboard hero](docs/screenshots/dashboard.jpg) | ![Empty board placeholder](docs/screenshots/kanban-empty.jpg) |
+
+**Features shown:** JWT login with Hangtuah branding, leadership dashboard, and customizable empty-state placeholders on kanban boards.
+
 ## Stack
 
 - Next.js 15.5 (App Router, Turbopack dev) + React 19 + TypeScript 5
@@ -124,4 +132,4 @@ Visual identity follows the Nov 2025 *Rise Stronger* rebrand:
 
 ## License
 
-Private — Hangtuah Jakarta.
+Hangtuah Jakarta — internal club use.
