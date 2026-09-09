@@ -12,20 +12,20 @@ export function AppShell({
   role,
   fullName,
   workspaces,
+  canAccessSocial,
   children,
 }: {
   role: Role;
   fullName: string;
   workspaces: WorkspaceNav[];
+  canAccessSocial?: boolean;
   children: React.ReactNode;
 }) {
   const [open, setOpen] = useState(false);
 
   return (
     <div className="flex min-h-screen bg-background">
-      <header
-        className="fixed inset-x-0 top-0 z-40 flex h-14 items-center gap-3 border-b border-white/10 bg-navy px-4 text-white lg:hidden"
-      >
+      <header className="fixed inset-x-0 top-0 z-40 flex h-14 items-center gap-3 border-b border-white/10 bg-navy px-4 text-white lg:hidden">
         <button
           type="button"
           onClick={() => setOpen(true)}
@@ -52,6 +52,7 @@ export function AppShell({
         role={role}
         fullName={fullName}
         workspaces={workspaces}
+        canAccessSocial={canAccessSocial}
         className={cn(
           "fixed inset-y-0 left-0 z-50 transition-transform duration-200 ease-out lg:static lg:translate-x-0",
           open ? "translate-x-0" : "-translate-x-full"

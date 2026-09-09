@@ -76,3 +76,29 @@ export function canSeeDashboard(role: Role) {
 export function canAdmin(role: Role) {
   return role === Role.ADMIN;
 }
+
+/** ADMIN / LEADERSHIP always; STAFF only if in Marketing workspace. */
+export async function canAccessSocialAudit(
+  session: SessionPayload
+): Promise<boolean> {
+  if (session.role === Role.ADMIN || session.role === Role.LEADERSHIP) {
+    return true;
+  }
+  if (session.role !== Role.STAFF) return false;
+  const membership = await prisma.workspaceMember.findFirst({
+    where: {
+      userId: session.userId,
+      workspace: { slug: "marketing" },
+    },
+    select: { id: true },
+  });
+  return Boolean(membership);
+}
+
+export async function assertSocialAuditAccess(
+  session: SessionPayload
+): Promise<void> {
+  if (!(await canAccessSocialAudit(session))) {
+    throw new ForbiddenError("No access to Social Audit");
+  }
+}

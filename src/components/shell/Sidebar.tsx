@@ -12,6 +12,7 @@ import {
   FolderKanban,
   LogOut,
   Palette,
+  Share2,
 } from "lucide-react";
 
 type WorkspaceNav = { slug: string; name: string };
@@ -21,6 +22,7 @@ export function Sidebar({
   fullName,
   workspaces,
   activeSlug,
+  canAccessSocial,
   className,
   onNavigate,
 }: {
@@ -28,6 +30,7 @@ export function Sidebar({
   fullName: string;
   workspaces: WorkspaceNav[];
   activeSlug?: string;
+  canAccessSocial?: boolean;
   className?: string;
   onNavigate?: () => void;
 }) {
@@ -57,6 +60,15 @@ export function Sidebar({
             onNavigate={onNavigate}
           >
             Fight Night
+          </NavLink>
+        )}
+        {canAccessSocial && (
+          <NavLink
+            href="/social"
+            icon={<Share2 className="h-4 w-4" />}
+            onNavigate={onNavigate}
+          >
+            Social Audit
           </NavLink>
         )}
         <div className="pt-3 pb-1 px-3 font-display text-[10px] tracking-[0.2em] text-sky">

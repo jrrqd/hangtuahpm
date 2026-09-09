@@ -152,3 +152,78 @@ model AppSettings {
   emptyKanbanPaths  String?
   updatedAt         DateTime @updatedAt
 }
+
+enum SocialChannel {
+  INSTAGRAM
+  TIKTOK
+  X
+  YOUTUBE
+}
+
+enum SnapshotSource {
+  PUBLIC_RESEARCH
+  MANUAL
+}
+
+model Club {
+  id         String          @id @default(cuid())
+  name       String
+  slug       String          @unique
+  city       String
+  isHangtuah Boolean         @default(false)
+  active     Boolean         @default(true)
+  notes      String?
+  createdAt  DateTime        @default(now())
+  updatedAt  DateTime        @updatedAt
+  accounts   SocialAccount[]
+}
+
+model SocialAccount {
+  id          String            @id @default(cuid())
+  clubId      String
+  channel     SocialChannel
+  handle      String?
+  profileUrl  String?
+  displayName String?
+  missing     Boolean           @default(false)
+  createdAt   DateTime          @default(now())
+  updatedAt   DateTime          @updatedAt
+  club        Club              @relation(fields: [clubId], references: [id], onDelete: Cascade)
+  snapshots   MetricSnapshot[]
+  audience    AudienceProfile?
+
+  @@unique([clubId, channel])
+}
+
+model MetricSnapshot {
+  id              String         @id @default(cuid())
+  accountId       String
+  capturedAt      DateTime
+  recordedAt      DateTime       @default(now())
+  followers       Int?
+  following       Int?
+  contentCount    Int?
+  avgLikes        Float?
+  avgComments     Float?
+  avgViews        Float?
+  engagementRate  Float?
+  sampleSize      Int?
+  source          SnapshotSource @default(MANUAL)
+  notes           String?
+  account         SocialAccount  @relation(fields: [accountId], references: [id], onDelete: Cascade)
+
+  @@index([accountId, capturedAt])
+}
+
+model AudienceProfile {
+  id              String        @id @default(cuid())
+  accountId       String        @unique
+  primaryLanguage String?
+  inferredGeo     String?
+  contentPillars  String?
+  fanTone         String?
+  strengths       String?
+  gaps            String?
+  updatedAt       DateTime      @updatedAt
+  account         SocialAccount @relation(fields: [accountId], references: [id], onDelete: Cascade)
+}
