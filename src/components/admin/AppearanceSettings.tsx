@@ -303,7 +303,7 @@ export function AppearanceSettings({ initialTheme }: { initialTheme: AppTheme })
                   width={120}
                   height={160}
                   unoptimized
-                  className="h-24 w-full rounded object-cover border"
+                  className="h-24 w-full rounded object-contain border bg-transparent"
                 />
                 {theme.customEmptyKanbanCount > 0 && (
                   <button

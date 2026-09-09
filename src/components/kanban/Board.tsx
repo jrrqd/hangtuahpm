@@ -352,7 +352,7 @@ export function KanbanBoard({
             height={420}
             unoptimized
             priority
-            className="h-auto w-64 max-w-full rounded-md object-contain"
+            className="h-auto w-64 max-w-full object-contain bg-transparent"
           />
           <Button
             className="mt-4"

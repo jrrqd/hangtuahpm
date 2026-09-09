@@ -12,9 +12,9 @@ export const DEFAULT_IMAGES = {
   loginHero: "/hangtuahpm/brand/login-hero.jpg",
   dashboardHero: "/hangtuahpm/brand/dashboard-hero.jpg",
   emptyKanban: [
-    "/hangtuahpm/brand/empty-kanban/player-1.jpg",
-    "/hangtuahpm/brand/empty-kanban/player-2.jpg",
-    "/hangtuahpm/brand/empty-kanban/player-3.jpg",
+    "/hangtuahpm/brand/empty-kanban/player-1.png",
+    "/hangtuahpm/brand/empty-kanban/player-2.png",
+    "/hangtuahpm/brand/empty-kanban/player-3.png",
   ],
 } as const;
 
