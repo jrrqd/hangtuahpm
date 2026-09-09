@@ -67,13 +67,9 @@ Open [http://localhost:3001/hangtuahpm/login](http://localhost:3001/hangtuahpm/l
 
 > This Mac workspace does not ship with Postgres — run migrate/seed on the VPS (or any machine with Postgres) before first login.
 
-### Seeded accounts (must change password on first login)
+### Seeded accounts
 
-| Username | Temp password | Role |
-|----------|---------------|------|
-| `admin` | `Hangtuah!Admin1` | ADMIN |
-| `lead1` | `Hangtuah!Lead1` | LEADERSHIP |
-| `mkt.staff` | `Hangtuah!Staff1` | STAFF (Marketing) |
+After `npm run db:seed`, demo users are created for each role. Temporary passwords are printed once in the seed script output — change them on first login. Do not commit or publish credentials.
 
 ## VPS deploy (PM2 + Nginx, no Docker)
 
